@@ -26,11 +26,29 @@ void solve(){
     cin>>s;
     int cnt_zero=0,cnt_one=0;
 
+    int cnt=0,flag=0;
+    string c="";
     for(char u:s){
         if(u=='1'){
             cnt_one++;
         }else{
             cnt_zero++;
+        }
+
+        if(cnt<3){
+            if(flag==0){
+                if(u=='1'){
+                    c+="1";
+                    flag=1;
+                    cnt++;
+                }
+            }if(flag==1){
+                if(u=='0'){
+                    c+='0';
+                    cnt++;
+                    flag=0;
+                }
+            }
         }
     }
 
@@ -102,7 +120,14 @@ void solve(){
         }
     }
 
-
+    int v=binaryToDecimal(res);
+    int v2=binaryToDecimal("101");
+    if(c!="101"){
+        if(v2<v){
+            cout<<"101"<<endl;
+            return;
+        }
+    }
     cout<<res<<endl;
 
 }

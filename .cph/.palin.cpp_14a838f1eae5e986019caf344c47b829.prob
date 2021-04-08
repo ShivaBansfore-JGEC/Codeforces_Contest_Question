@@ -1,0 +1,1 @@
+{"name":"Local: palin","url":"d:\\my_coding_folder\\1.Codeforces_contest_questions\\palin.cpp","tests":[{"id":1617460782283,"input":"6\nabaa\nab\nzza\nba\na\nnutforajaroftuna","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\my_coding_folder\\1.Codeforces_contest_questions\\palin.cpp","group":"local","local":true}
