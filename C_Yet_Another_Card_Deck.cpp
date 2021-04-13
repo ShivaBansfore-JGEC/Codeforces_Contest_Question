@@ -29,14 +29,45 @@ int gcd(int a, int b) { if (a == 0) return b; return gcd(b % a, a);}
 
 
 void solve(){
-   vector<int> v;
+    int n,k;
+    cin>>n>>k;
 
+    int a[n],b[k];
+    map<int,int> mppp;
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+        if(mppp[a[i]]==0){
+            mppp[a[i]]=i+1;
+        }
+    }
+
+    mp mpp;
+    int cnt=0;
+    for(int i=0;i<k;i++){
+        cin>>b[i];
+        if(mpp[b[i]]==0){
+            int cnt=0;
+            for(int j=0;j<i;j++){
+                if(mppp[b[j]]>mppp[b[i]]){
+                    cnt++;
+                }
+            }
+            cout<<mppp[b[i]]+cnt<<" ";
+            mpp[b[i]]=i+1;
+        }else{
+            int ans=(i+1)-mpp[b[i]];
+            mpp[b[i]]=i+1;
+            cout<<ans<<" ";
+
+        }
+    }
+    cout<<endl;
 }
 
 int main(){
    fio;
    int t=1;
-   cin>>t;
+   //cin>>t;
    while(t--) solve();
 return 0;
 }

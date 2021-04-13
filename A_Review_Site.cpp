@@ -29,8 +29,18 @@ int gcd(int a, int b) { if (a == 0) return b; return gcd(b % a, a);}
 
 
 void solve(){
-   vector<int> v;
+    int n;
+    cin>>n;
+    int arr[n];
+    ll upvote=0;
+    for(int i=0;i<n;i++){
+        cin>>arr[i];
+        if(arr[i]==1 || arr[i]==3){
+            upvote++;
+        }
 
+    }
+    cout<<upvote<<endl;
 }
 
 int main(){

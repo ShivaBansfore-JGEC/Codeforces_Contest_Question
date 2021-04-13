@@ -29,7 +29,26 @@ int gcd(int a, int b) { if (a == 0) return b; return gcd(b % a, a);}
 
 
 void solve(){
-   vector<int> v;
+    int n,k;
+    cin>>n>>k;
+
+    if((n-k)<=k){
+        cout<<-1<<endl;
+    }else{
+        vector<int> ans;
+        int j=0,flag=0,cnt=k;
+        fr(i,1,(n-k)+1){
+            ans.pb(i);
+            if(cnt>0){
+                ans.pb((n-j));
+                j++;
+                cnt--;
+            }
+        }
+        for(int u:ans) cout<<u<<" ";
+        cout<<endl;
+
+    }
 
 }
 
