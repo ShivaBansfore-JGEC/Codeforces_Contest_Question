@@ -26,128 +26,61 @@ using namespace std;
 #define fio ios_base::sync_with_stdio(false), cin.tie(NULL), cout.tie(NULL)
 int gcd(int a, int b) { if (a == 0) return b; return gcd(b % a, a);}
  
+ int ln,rem;
+
+ bool is_possible(int v,int len,int s){
+
+     bool flag=false;
+     for(int i=1;i<=len-1;i++){
+         int val=s-(i*v);
+         if(val<=9){
+             ln=i;
+             rem=val;
+             flag=true;
+             break;
+         }
+     }
+
+    return flag;
+
+ }
  
 void solve(){
     int n,s;
     cin>>n>>s;
 
-    if(s==0){
+    if(s<1){
         cout<<-1<<" "<<-1<<endl;
     }else if(9*n < s){
         cout<<-1<<" "<<-1<<endl;
 
     }else{
-        
-        int l=0,n1,v1,r,v2,n2;
-
+        vector<int> ans(n,0);
         for(int i=1;i<=9;i++){
-            for(int j=1;j<=n;j++){
-                if(j<n){
-                    if(s-(i*j) <= 9 && s-(i*j)>=0){
-                        if(l==0){
-                            l=i;
-                            v1=s-(i*j);
-                            n1=j;
-                        }
-                        r=i;
-                        v2=s-(i*j);
-                        n2=j;
-                    }
-                }else{
-                    if(s-(i*j)==0){
-                        if(l==0){
-                            l=i;
-                            v1=s-(i*j);
-                            n1=j;
-                        }
-                        r=i;
-                        v2=s-(i*j);
-                        n2=j;
-                    }
+            ln=n;
+            if(is_possible(i,n,s)==true){
+                ans[0]=i;
+                ln-=1;
+                ans[n-1]=rem;
+                int k=n-2;
+                while(ln>0){
+                    ans[k]=i;
+                    k--;
+                    ln--;
                 }
-   
+
+                break;
             }
         }
 
-        //find smallest 
-        //case 1: if n1 < n-1
-        //case 2: if n1==n
-        //case 3: if n1==n-1
-
-        vector<int> smallest;
-        if(n1==n){
-            for(int i=0;i<n;i++){
-                smallest.push_back(l);
-            }
-        }else if(n1 == n-1){
-
-            for(int i=0;i<n-1;i++){
-                smallest.push_back(l);
-            }
-            smallest.push_back(v1);
-
-        }else{
-            int zero_put=(n-1)-n1;
-            smallest.push_back(l);
-            n1-=1;
-            for(int i=0;i<zero_put;i++){
-                smallest.push_back(0);
-            }
-            for(int i=0;i<n1;i++){
-                smallest.push_back(l);
-            }
-            smallest.push_back(v1);
+        for(int u:ans){
+            cout<<u;
         }
-
-
-
-
-        //find the largest 
-        vector<int> largest;
-        if(n2==n){
-            for(int i=0;i<n;i++){
-                largest.push_back(r);
-            }
-        }else if(n2 == n-1){
-
-            for(int i=0;i<n-1;i++){
-                largest.push_back(r);
-            }
-            largest.push_back(v2);
-
-        }else{
-            int zero_put=(n-1)-n2;
-            for(int i=0;i<n2;i++){
-                largest.push_back(r);
-            }
-            largest.push_back(v2);
-
-            for(int i=0;i<zero_put;i++){
-                largest.push_back(0);
-            }
-        }
-
-        sort(smallest.begin(),smallest.end());
-
-        if(smallest[0]==0){
-            for(int i=1;i<smallest.size();i++){
-                if(smallest[i]>0){
-                    smallest[0]=smallest[i];
-                    smallest[i]=0;
-                    break;
-                }
-            }
-        }
-        sort(largest.begin(),largest.end(),greater<int> ());
-
-        for(int u:smallest) cout<<u;
         cout<<" ";
-        for(int u:largest) cout<<u;
-
-        cout<<endl;
 
 
 
+        
     }
  
 }

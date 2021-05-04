@@ -6,6 +6,7 @@
 using namespace std;
 #define ll long long
 #define dd double
+#define all(a) a.begin(),a.end()
 #define pie 3.1415926535898
 #define mod (ll)(998244353)
 #define MOD (int) 1e9+7
@@ -21,7 +22,7 @@ using namespace std;
 #define ff first
 #define ss second
 #define bits(n) __builtin_popcount(n)
-#define rr return 
+#define rr return 0
 #define ini(a, i) memset(a, i, sizeof(a))
 #define fio ios_base::sync_with_stdio(false), cin.tie(NULL), cout.tie(NULL)
 int gcd(int a, int b) { if (a == 0) return b; return gcd(b % a, a);}
@@ -29,39 +30,58 @@ int gcd(int a, int b) { if (a == 0) return b; return gcd(b % a, a);}
 
 void solve(){
 
-    ll n,m;
-    cin>>n>>m;
+    ll n,x;
+    cin>>n>>x;
+
+    vector<ll> a(n);
+    ll mn=INT_MAX,mx=INT_MIN;
+    ll s=0;
     bool flag=0;
-    int a[n][m];
-
-     vector<pair<ll,pair<ll,ll>>> pp;
-    for(int i=0;i<n;i++){
-        for(int j=0;j<m;j++){
-            cin>>a[i][j];
+    fr(i,0,n){
+        cin>>a[i];
+        if(a[i]>x){
+            flag=1;
         }
-        sort(a[i],a[i]+m);
-
-        for(int j=0;j<m;j++){
-            pp.push_back({a[i][j],{i,j}});
-        }
+        s+=a[i];
     }
 
-    sort(pp.begin(),pp.end());
-
-    for(int k=(m-1);k>=0;k--){
-        int x=pp[k].second.first;
-        int  y=pp[k].second.second;
-        swap(a[x][y],a[x][k]);
+    if(s==x){
+        cout<<"NO"<<endl;
+        return;
     }
 
-
-    for(int i=0;i<n;i++){
-        for(int j=0;j<m;j++){
-            cout<<a[i][j]<<" ";
+    if(x>s){
+        cout<<"YES"<<endl;
+        for(int u:a){
+            cout<<u<<" ";
         }
         cout<<endl;
-    }
+    }else{
+        sort(all(a));
+        ll sum=0;
+        vector<bool> vis(n,false);
+        vector<ll> ans;
+        for(int i=0;i<n;i++){
+            if(sum+a[i]!=x){
+                ans.push_back(a[i]);
+                vis[i]=true;
+                sum+=a[i];
+            }
+        }
 
+        for(int i=0;i<n;i++){
+            if(vis[i]==false){
+                ans.push_back(a[i]);
+            }
+        }
+
+        cout<<"YES"<<endl;
+        for(int u:ans){
+            cout<<u<<" ";
+        }
+
+        cout<<endl;
+    }
 
 
 }

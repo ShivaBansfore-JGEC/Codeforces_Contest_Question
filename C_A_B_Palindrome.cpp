@@ -29,7 +29,121 @@ int gcd(int a, int b) { if (a == 0) return b; return gcd(b % a, a);}
 
 
 void solve(){
-   vector<int> v;
+   
+   int a,b;
+   cin>>a>>b;
+
+   int zero=0,one=0;
+   string s;
+   cin>>s;
+
+   for(char u:s){
+      if(u=='0'){
+         zero++;
+      }else if(u=='1'){
+         one++;
+      }
+   }
+
+
+   if(zero>a || one>b){
+      cout<<-1<<endl;
+      return;
+   }
+
+   int i=0,j=s.size()-1;
+
+   while(i<j){
+         if(s[i]!='?' && s[j]!='?'){
+            if(s[i]!=s[j]){
+               cout<<-1<<endl;
+               return;
+            }
+         }
+
+      if(s[i]!='?' && s[j]=='?'){
+         if(s[i]=='0'){
+               if(zero+1>a){
+                  cout<<-1<<endl;
+                  return;
+               }else{
+                  s[j]='0';
+                  zero++;
+               }
+         }else if(s[i]=='1'){
+
+             if(one+1>b){
+                  cout<<-1<<endl;
+                  return;
+               }else{
+                  s[j]='1';
+                  one++;
+               }
+         }
+
+      }else if(s[i]=='?' && s[j]!='?'){
+         if(s[j]=='0'){
+               if(zero+1>a){
+                  cout<<-1<<endl;
+                  return;
+               }else{
+                  s[i]='0';
+                  zero++;
+               }
+         }else if(s[j]=='1'){
+
+             if(one+1>b){
+                  cout<<-1<<endl;
+                  return;
+               }else{
+                  s[i]='1';
+                  one++;
+               }
+         }
+      }
+      i++;
+      j--;
+   }
+
+
+
+i=0,j=s.size()-1;
+
+while(i<=j){
+   if(i==j){
+      if(s[i]=='?'){
+         if(zero+1<=a){
+            s[i]='0';
+            zero++;
+         }else if(one+1<=b){
+            s[i]='1';
+            one++;
+         }else{
+            cout<<-1<<endl;
+            return;
+         }
+      }
+   }else{
+      if(s[i]=='?'){
+         if(zero+2<=a){
+            s[i]='0';
+            s[j]='0';
+            zero+=2;
+         }else if(one+2<=b){
+            s[i]='1';
+            s[j]='1';
+            one+=2;
+         }else{
+            cout<<"-1"<<endl;
+            return;
+         }
+      }
+   }
+   i++;
+   j--;
+}
+
+cout<<s<<endl;
 
 }
 

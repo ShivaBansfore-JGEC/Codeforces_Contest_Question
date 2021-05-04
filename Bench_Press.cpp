@@ -6,6 +6,7 @@
 using namespace std;
 #define ll long long
 #define dd double
+#define all(a) a.begin(),a.end()
 #define pie 3.1415926535898
 #define mod (ll)(998244353)
 #define MOD (int) 1e9+7
@@ -21,7 +22,7 @@ using namespace std;
 #define ff first
 #define ss second
 #define bits(n) __builtin_popcount(n)
-#define rr return 
+#define rr return 0
 #define ini(a, i) memset(a, i, sizeof(a))
 #define fio ios_base::sync_with_stdio(false), cin.tie(NULL), cout.tie(NULL)
 int gcd(int a, int b) { if (a == 0) return b; return gcd(b % a, a);}
@@ -29,40 +30,36 @@ int gcd(int a, int b) { if (a == 0) return b; return gcd(b % a, a);}
 
 void solve(){
 
-    ll n,m;
-    cin>>n>>m;
-    bool flag=0;
-    int a[n][m];
-
-     vector<pair<ll,pair<ll,ll>>> pp;
-    for(int i=0;i<n;i++){
-        for(int j=0;j<m;j++){
-            cin>>a[i][j];
-        }
-        sort(a[i],a[i]+m);
-
-        for(int j=0;j<m;j++){
-            pp.push_back({a[i][j],{i,j}});
-        }
-    }
-
-    sort(pp.begin(),pp.end());
-
-    for(int k=(m-1);k>=0;k--){
-        int x=pp[k].second.first;
-        int  y=pp[k].second.second;
-        swap(a[x][y],a[x][k]);
-    }
-
+    ll n,w,wr;
+    cin>>n>>w>>wr;
+    vector<ll> a(n);
+    set<ll> st;
+    map<ll,ll> mpp;
 
     for(int i=0;i<n;i++){
-        for(int j=0;j<m;j++){
-            cout<<a[i][j]<<" ";
-        }
-        cout<<endl;
+        cin>>a[i];
+        st.insert(a[i]);
+        mpp[a[i]]++;
     }
 
+    if(wr>=w){
+        cout<<"YES"<<endl;
+    }else{
 
+        ll sum=wr;
+        for(ll v:st){
+            if(mpp[v]>1){
+                sum+=(ll)((mpp[v]-(mpp[v]%2))*v);
+            }
+        }
+
+        if(sum>=w){
+            cout<<"YES"<<endl;
+        }else{
+            cout<<"NO"<<endl;
+        }
+
+    }
 
 }
 
