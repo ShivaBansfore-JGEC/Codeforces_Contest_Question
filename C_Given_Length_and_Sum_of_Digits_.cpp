@@ -49,27 +49,59 @@ void solve(){
     int n,s;
     cin>>n>>s;
 
-    if(s<1){
-        cout<<-1<<" "<<-1<<endl;
-    }else if(9*n < s){
-        cout<<-1<<" "<<-1<<endl;
+    if(s==0 && n==1){
+        cout<<0<<" "<<0<<endl;
+        return;
+    }
 
+    if(s<1 && n>1){
+        cout<<-1<<" "<<-1<<endl;
     }else{
-        vector<int> ans(n,0);
+        if(9*n<s){
+            cout<<-1<<" ";
+        }else{
+        vector<int> ans;
+        int first=-1;
+        int s_copy=s;
         for(int i=1;i<=9;i++){
-            ln=n;
-            if(is_possible(i,n,s)==true){
-                ans[0]=i;
-                ln-=1;
-                ans[n-1]=rem;
-                int k=n-2;
-                while(ln>0){
-                    ans[k]=i;
-                    k--;
-                    ln--;
-                }
-
+            if((n-1)*9 >=(s-i)){
+                first=i;
+                s_copy-=i;
                 break;
+            }
+        }
+
+        int rem=-1;
+
+        for(int i=9;i>=1;i--){
+                if(s_copy/i>0){
+                    int cnt=s_copy/i;
+                    while(ans.size()<(n-1) && cnt > 0){
+                        ans.push_back(i);
+                        cnt--;
+                    }
+                    rem=(s_copy-(ans.size()*i));
+                    break;
+                }    
+        }
+        if(rem>0){
+            if(ans.size()<(n-1)){
+                ans.push_back(rem);
+            }
+        }
+
+        while(ans.size()<n-1){
+            ans.push_back(0);
+        }
+        ans.push_back(first);
+        reverse(ans.begin(),ans.end());
+
+        if(ans[0]==0){
+            for(int i=0;i<ans.size();i++){
+                if(ans[i]>0){
+                    swap(ans[0],ans[i]);
+                    break;
+                }
             }
         }
 
@@ -77,11 +109,52 @@ void solve(){
             cout<<u;
         }
         cout<<" ";
+        }
 
 
+  
+    if(9*n<s){
+            cout<<-1<<endl;
+        }else{
+            vector<int> l;
+            int val=0;
+            for(int i=9;i>=1;i--){
+                if(s/i>0){
+                    int cnt=s/i;
+                    while(cnt>0){
+                        l.push_back(i);
+                        cnt--;
+                    }
+                    if(l.size()<n){
+                        int rem=(s-(l.size()*i));
+                        if(rem>0){
+                            l.push_back(rem);
+                        }
+                    }
+
+                    break;
+
+                }
+            }
+
+
+            while(l.size()<n){
+                l.push_back(0);
+            }
+
+
+            for(int u:l){
+                cout<<u;
+            }
+
+            cout<<endl;
+        }
+
+        }
 
         
-    }
+
+  
  
 }
  
