@@ -29,34 +29,32 @@ int gcd(int a, int b) { if (a == 0) return b; return gcd(b % a, a);}
 
 
 void solve(){
-    int n,m;
-    cin>>n>>m;
-    string s;
-    cin>>s;
-    vector<int> v;
-    for(int i=0;i<min(n,m);i++){
-        for(int j=0;j<n;j++){
-            if(j==0){
-                if(s[j]=='0' && s[j+1]=='1'){
-                    v.push_back(j);
-                }
-            }else if(j==n-1){
-                if(s[j]=='0' && s[j-1]=='1'){
-                    v.push_back(j);
-                }
-            }else{
-                if(s[j]=='0' && (s[j-1]=='0' && s[j+1]=='1') || (s[j-1]=='1' && s[j+1]=='0')){
-                    v.push_back(j);
+    ll n,m,x,y;
+    cin>>n>>m>>x>>y;
+    vector<pair<int,int>> v;
+    v.push_back({1,1});
+    v.push_back({1,m});
+    v.push_back({n,1});
+    v.push_back({n,m});
+
+    int mx=INT_MIN;
+    int x1,y1,x2,y2;
+    for(int i=0;i<v.size();i++){
+        for(int j=0;j<v.size();j++){
+            if(i!=j){
+                int val=(v[i].first-x +v[i].second-y)+(v[j].first-x + v[j].second-y);
+                if(val>mx){
+                    mx=val;
+                    x1=v[i].first;
+                    y1=v[i].second;
+                    x2=v[j].first;
+                    y2=v[j].second;
                 }
             }
         }
-        for(auto idx:v){
-            s[idx]='1';
-        }
     }
-  
-    cout<<s<<endl;
 
+    cout<<x1<<" "<<y1<<" "<<x2<<" "<<y2<<endl;
 
 }
 

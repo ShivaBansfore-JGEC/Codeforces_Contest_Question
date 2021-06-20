@@ -29,35 +29,38 @@ int gcd(int a, int b) { if (a == 0) return b; return gcd(b % a, a);}
 
 
 void solve(){
-    int n,m;
-    cin>>n>>m;
-    string s;
-    cin>>s;
-    vector<int> v;
-    for(int i=0;i<min(n,m);i++){
-        for(int j=0;j<n;j++){
-            if(j==0){
-                if(s[j]=='0' && s[j+1]=='1'){
-                    v.push_back(j);
-                }
-            }else if(j==n-1){
-                if(s[j]=='0' && s[j-1]=='1'){
-                    v.push_back(j);
-                }
-            }else{
-                if(s[j]=='0' && (s[j-1]=='0' && s[j+1]=='1') || (s[j-1]=='1' && s[j+1]=='0')){
-                    v.push_back(j);
-                }
+    int n;
+    cin>>n;
+
+    vector<ll> a(n);
+    ll mn=INT_MAX,mx=INT_MIN;
+    ll sum=0;
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+        sum+=a[i];
+        mn=min(mn,a[i]);
+        mx=max(mx,a[i]);
+    }
+
+    if(n==1){
+        cout<<0<<endl;
+    }else if(sum%n!=0){
+        cout<<-1<<endl;
+    }else if(mn==mx){
+        cout<<0<<endl;
+    }else{
+        ll tar=sum/n;
+        ll cnt=0;
+
+        for(ll u:a){
+            if(u>tar){
+                cnt++;
             }
         }
-        for(auto idx:v){
-            s[idx]='1';
-        }
+
+        cout<<cnt<<endl;
+
     }
-  
-    cout<<s<<endl;
-
-
 }
 
 int main(){

@@ -28,36 +28,39 @@ using namespace std;
 int gcd(int a, int b) { if (a == 0) return b; return gcd(b % a, a);}
 
 
-void solve(){
-    int n,m;
-    cin>>n>>m;
-    string s;
-    cin>>s;
-    vector<int> v;
-    for(int i=0;i<min(n,m);i++){
-        for(int j=0;j<n;j++){
-            if(j==0){
-                if(s[j]=='0' && s[j+1]=='1'){
-                    v.push_back(j);
-                }
-            }else if(j==n-1){
-                if(s[j]=='0' && s[j-1]=='1'){
-                    v.push_back(j);
-                }
-            }else{
-                if(s[j]=='0' && (s[j-1]=='0' && s[j+1]=='1') || (s[j-1]=='1' && s[j+1]=='0')){
-                    v.push_back(j);
-                }
-            }
-        }
-        for(auto idx:v){
-            s[idx]='1';
+void printAllSubstrings(string s, int n,vector<string> &v)
+{
+    /*
+     * Fix start index in outer loop.
+     * Reveal new character in inner loop till end of string.
+     * Print till-now-formed string.
+     */
+    for (int i = 0; i < n; i++)
+    {
+        char temp[n - i + 1];
+        int tempindex = 0;
+        for (int j = i; j < n; j++)
+        {
+            temp[tempindex++] = s[j];
+            temp[tempindex] = '\0';
+            v.push_back(temp);
         }
     }
-  
-    cout<<s<<endl;
+}
 
 
+bool compare(string &s1,string &s2)
+{
+    return s1.size() < s2.size();
+}
+
+
+void solve(){
+    int n;
+    cin>>n;
+    string s;
+    cin>>s;
+    
 }
 
 int main(){

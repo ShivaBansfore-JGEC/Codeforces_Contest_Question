@@ -29,35 +29,23 @@ int gcd(int a, int b) { if (a == 0) return b; return gcd(b % a, a);}
 
 
 void solve(){
-    int n,m;
-    cin>>n>>m;
-    string s;
-    cin>>s;
-    vector<int> v;
-    for(int i=0;i<min(n,m);i++){
-        for(int j=0;j<n;j++){
-            if(j==0){
-                if(s[j]=='0' && s[j+1]=='1'){
-                    v.push_back(j);
-                }
-            }else if(j==n-1){
-                if(s[j]=='0' && s[j-1]=='1'){
-                    v.push_back(j);
-                }
-            }else{
-                if(s[j]=='0' && (s[j-1]=='0' && s[j+1]=='1') || (s[j-1]=='1' && s[j+1]=='0')){
-                    v.push_back(j);
-                }
-            }
-        }
-        for(auto idx:v){
-            s[idx]='1';
-        }
+    int n;
+    cin>>n;
+    ll a[n];
+    for(int i=0;i<n;i++){
+        cin>>a[i];
     }
-  
-    cout<<s<<endl;
 
-
+    ll tot=3*n;
+    cout<<tot<<endl;
+    for(int i=0;i<n;i+=2){
+        cout<<2<<" "<<i+1<<" "<<i+2<<endl;
+        cout<<2<<" "<<i+1<<" "<<i+2<<endl;
+        cout<<1<<" "<<i+1<<" "<<i+2<<endl;
+        cout<<2<<" "<<i+1<<" "<<i+2<<endl;
+        cout<<2<<" "<<i+1<<" "<<i+2<<endl;
+        cout<<1<<" "<<i+1<<" "<<i+2<<endl;
+    }
 }
 
 int main(){

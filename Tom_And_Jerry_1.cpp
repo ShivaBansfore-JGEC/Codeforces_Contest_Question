@@ -29,35 +29,21 @@ int gcd(int a, int b) { if (a == 0) return b; return gcd(b % a, a);}
 
 
 void solve(){
-    int n,m;
-    cin>>n>>m;
-    string s;
-    cin>>s;
-    vector<int> v;
-    for(int i=0;i<min(n,m);i++){
-        for(int j=0;j<n;j++){
-            if(j==0){
-                if(s[j]=='0' && s[j+1]=='1'){
-                    v.push_back(j);
-                }
-            }else if(j==n-1){
-                if(s[j]=='0' && s[j-1]=='1'){
-                    v.push_back(j);
-                }
-            }else{
-                if(s[j]=='0' && (s[j-1]=='0' && s[j+1]=='1') || (s[j-1]=='1' && s[j+1]=='0')){
-                    v.push_back(j);
-                }
-            }
+    ll a,b,c,d,k;
+    cin>>a>>b>>c>>d>>k;
+
+    ll val=abs(c-a)+abs(d-b);
+    if(val==k){
+        cout<<"YES"<<endl;
+    }else if(val<k){
+        if((k-val)%2==0){
+            cout<<"YES"<<endl;
+        }else{
+            cout<<"NO"<<endl;
         }
-        for(auto idx:v){
-            s[idx]='1';
-        }
+    }else{
+        cout<<"NO"<<endl;
     }
-  
-    cout<<s<<endl;
-
-
 }
 
 int main(){

@@ -29,33 +29,48 @@ int gcd(int a, int b) { if (a == 0) return b; return gcd(b % a, a);}
 
 
 void solve(){
-    int n,m;
-    cin>>n>>m;
-    string s;
-    cin>>s;
-    vector<int> v;
-    for(int i=0;i<min(n,m);i++){
-        for(int j=0;j<n;j++){
-            if(j==0){
-                if(s[j]=='0' && s[j+1]=='1'){
-                    v.push_back(j);
-                }
-            }else if(j==n-1){
-                if(s[j]=='0' && s[j-1]=='1'){
-                    v.push_back(j);
-                }
-            }else{
-                if(s[j]=='0' && (s[j-1]=='0' && s[j+1]=='1') || (s[j-1]=='1' && s[j+1]=='0')){
-                    v.push_back(j);
-                }
-            }
+    int n;
+    cin>>n;
+
+    vector<int> a(n);
+    int mn=INT_MAX;
+    int mx=INT_MIN;
+    int id1=-1,id2=-1;
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+        if(mn > a[i]){
+            mn=a[i];
+            id1=i;
         }
-        for(auto idx:v){
-            s[idx]='1';
+
+        if(mx < a[i]){
+            id2=i;
+            mx=a[i];
         }
     }
-  
-    cout<<s<<endl;
+       
+
+   
+
+    if(id1 < id2){
+        int ans=id2+1;
+
+        ans=min(ans,n-id1);
+        ans=min(ans,id1+(n-id2)+1);
+        ans=min(ans,n-id1);
+        cout<<ans<<endl;
+    }else{
+        int ans=id1+1;
+
+        ans=min(ans,n-id2);
+        ans=min(ans,id2+(n-id1)+1);
+        ans=min(ans,n-id2);
+        cout<<ans<<endl;
+
+    }
+    
+
+
 
 
 }

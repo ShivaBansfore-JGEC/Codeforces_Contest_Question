@@ -28,42 +28,68 @@ using namespace std;
 int gcd(int a, int b) { if (a == 0) return b; return gcd(b % a, a);}
 
 
-void solve(){
-    int n,m;
-    cin>>n>>m;
-    string s;
-    cin>>s;
-    vector<int> v;
-    for(int i=0;i<min(n,m);i++){
-        for(int j=0;j<n;j++){
-            if(j==0){
-                if(s[j]=='0' && s[j+1]=='1'){
-                    v.push_back(j);
-                }
-            }else if(j==n-1){
-                if(s[j]=='0' && s[j-1]=='1'){
-                    v.push_back(j);
-                }
-            }else{
-                if(s[j]=='0' && (s[j-1]=='0' && s[j+1]=='1') || (s[j-1]=='1' && s[j+1]=='0')){
-                    v.push_back(j);
-                }
+
+
+const int N=1e7+2;
+
+vector<bool> prime(N,true);
+vector<ll> prefix(N);
+
+
+void sieve(){
+
+    prime[0]=false;
+    prime[1]=false;
+
+    for(int i=2;i*i<=N;i++){
+        if(prime[i]==true){
+            for(int j=i*i;j<=N;j+=i){
+                prime[j]=false;
             }
         }
-        for(auto idx:v){
-            s[idx]='1';
+    }
+
+
+    for(int i=2;i<=N;i++){
+        if(prime[i]==true){
+            prefix[i]=prefix[i-1]+1;
+        }else{
+            prefix[i]=prefix[i-1];
         }
     }
-  
-    cout<<s<<endl;
+
+
+
+}
+
+
+void solve(){
+    ll n;
+    cin>>n;
+    if(n<=3){
+        cout<<n-1<<endl;
+        return;
+    }
+    
+    // for(int i=1;i<=n;i++){
+    //     cout<<prefix[i]<<" ";
+    // }
+
+    // cout<<endl;
+
+    ll ans=1+prefix[n]-prefix[n/2];
+    cout<<ans<<endl;
+
 
 
 }
 
 int main(){
    fio;
+   sieve();
    int t=1;
    cin>>t;
+
    while(t--) solve();
 return 0;
 }

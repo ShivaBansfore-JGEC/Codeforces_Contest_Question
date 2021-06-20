@@ -29,33 +29,40 @@ int gcd(int a, int b) { if (a == 0) return b; return gcd(b % a, a);}
 
 
 void solve(){
-    int n,m;
-    cin>>n>>m;
-    string s;
-    cin>>s;
-    vector<int> v;
-    for(int i=0;i<min(n,m);i++){
-        for(int j=0;j<n;j++){
-            if(j==0){
-                if(s[j]=='0' && s[j+1]=='1'){
-                    v.push_back(j);
-                }
-            }else if(j==n-1){
-                if(s[j]=='0' && s[j-1]=='1'){
-                    v.push_back(j);
-                }
-            }else{
-                if(s[j]=='0' && (s[j-1]=='0' && s[j+1]=='1') || (s[j-1]=='1' && s[j+1]=='0')){
-                    v.push_back(j);
-                }
-            }
-        }
-        for(auto idx:v){
-            s[idx]='1';
+    ll n;
+    cin>>n;
+    vector<ll> a(n),v1,v2,v3;
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+        if(a[i]%2==0){
+            v1.push_back(a[i]);
+        }else{
+            v2.push_back(a[i]);
         }
     }
-  
-    cout<<s<<endl;
+
+    for(ll u:v1){
+        v3.push_back(u);
+    }
+
+    for(ll u:v2){
+        v3.push_back(u);
+    }
+
+    ll ans=0;
+
+    for(int i=0;i<n;i++){
+        ll v1=v3[i];
+        bool flag=1;
+        for(int j=i+1;j<n;j++){
+            ll v2=v3[j];
+            if(__gcd(v1,2*v2)>1){
+                ans++;
+            }
+        }
+    }
+
+    cout<<ans<<endl;
 
 
 }
