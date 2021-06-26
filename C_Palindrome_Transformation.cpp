@@ -29,88 +29,88 @@ int gcd(int a, int b) { if (a == 0) return b; return gcd(b % a, a);}
 
 
 void solve(){
-    ll n,k;
-    cin>>n>>k;
+    ll n,pos;
+    cin>>n>>pos;
     string s;
     cin>>s;
 
-    if(n%2==0){
-        int ans1=0,ans2=0;
-        if(k==n/2){
+    int mid=(n/2);
 
-            int idx=k-1;
-            while(idx>=0){
-                int id=(n-1)-idx;
-                int val=abs((s[idx]-'a')%25 - (s[id]-'a')%25);
-                s[idx]=s[id];
-                ans1+=val;
-                idx--;
+    if(pos==mid){
+        //go to left direction
+        int ans=INT_MAX;
+        int cost1=0,cost2=0;
+
+        int i=mid-1;
+        while(i>=0){
+            //find corresponding index
+            int j=(n-i-1);
+            if(s[i]!=s[j]){
+                int mn=INT_MAX;
+                if(s[i] < s[j]){
+                    //cout<<s[i]<<" "<<s[j]<<endl;
+                    int v1=(s[j]-'a')-(s[i]-'a');
+                    int v2=((s[i]-'a') + (26-(s[j]-'a')));
+                    mn=min(v1,v2);
+                    s[i]=s[j];
+                }else{
+                    int v1=((s[i]-'a') - (s[j]-'a'));
+                    int v2=((26-(s[i]-'a')) + s[j]-'a');
+                    mn=min(v1,v2);
+                    s[i]=s[j];
+                }
+                cost1+=mn;
             }
 
-            ans1+=k-1;
-
-            idx=k-1;
-
-            while(idx<n){
-                int id=(n-1)-idx;
-                int val=abs((s[idx]-'a')%25 - (s[id]-'a')%25);
-                s[idx]=s[id];
-                ans2+=val;
-                idx++;
-            }
-
-            ans2+=k-1;
-
-            cout<<min(ans1,ans2)<<endl;
-            
-
-        }else if(k<n/2){
-            int ans1=0,ans2=0;
-            int idx=k-1;
-            while(idx<n/2){
-                int id=(n-1)-idx;
-                int val=abs((s[idx]-'a')%25 - (s[id]-'a')%25);
-                ans1+=val;
-                ans1++;
-                idx++;
-            }
-
-            idx=k-1;
-
-            while(idx>=0){
-                int id=(n-1)-idx;
-                int val=abs((s[idx]-'a')%25 - (s[id]-'a')%25);
-                s[idx]=s[id];
-                ans1+=val;
-                idx--;
-            }
-
-            ans1+=k-1;
-
-
-            idx=k-1;
-
-            while(idx<n){
-                int id=(n-1)-idx;
-                int val=abs((s[idx]-'a')%25 - (s[id]-'a')%25);
-                s[idx]=s[id];
-                ans2+=val;
-                idx++;
-            }
-
-            ans2+=(n-k);
-
-            cout<<ans1<< " "<<ans2<<endl;
-
-            // cout<<min(ans1,ans2)<<endl; 
-
-        }else if(k>n/2){
-
+            cost1++;
+            i--;
         }
 
-    }else{
-        
+        //go to right direction
+        i=mid;
+        while(i < n){
+            //find corresponding index
+            int j=(n-i-1);
+            if(s[i]!=s[j]){
+                int mn=INT_MAX;
+                if(s[i] < s[j]){
+                    //cout<<s[i]<<" "<<s[j]<<endl;
+                    int v1=(s[j]-'a')-(s[i]-'a');
+                    int v2=((s[i]-'a') + (26-(s[j]-'a')));
+                    mn=min(v1,v2);
+                    s[j]=s[i];
+                }else{
+                    int v1=((s[i]-'a') - (s[j]-'a'));
+                    int v2=((26-(s[i]-'a')) + s[j]-'a');
+                    mn=min(v1,v2);
+                    s[j]=s[i];
+                }
+                cost2+=mn;
+            }
+            cost2++;
+            i++;
+        }
+        ans=min(cost1,cost2);
+        cout<<ans<<endl;
+
+    }else if(pos < mid){
+
+        //first go upto mid
+
+        //come back to oth position
+
+
+        //go upto last position
+
+    }else if(pos > mid){
+        //first go upto mid
+
+        //return upto last pos
+
+
+        //go upto 0th position 
     }
+
 
 }
 
